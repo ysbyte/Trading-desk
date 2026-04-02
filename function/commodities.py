@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 def get_oil_data(start="2010-01-01"):
     tickers = ["BZ=F","CL=F"]
     
-    data = yf.download(tickers, start=start)
+    data = yf.download(tickers, start=start, auto_adjust=False)
     
     prices = data["Close"]
     prices.columns = ["Brent", "WTI"]
@@ -101,8 +101,12 @@ def futures_curve(symbol="WTI", months=6):
 
     tickers = []
     labels = []
-    start_offset = 1 if today.day < 20 else 2
     
+    if symbol == "WTI":
+        start_offset = 1 if today.day < 20 else 2
+    elif symbol == "Brent":
+        start_offset = 2 if today.day < 25 else 3
+
     for i in range(start_offset, months + start_offset):
         idx = (current_month + i - 1) % 12
         letter = codes_mois[idx]
