@@ -21,6 +21,9 @@ def get_fred(series):
     r = requests.get(FRED_URL, params=params)
     data = r.json()
 
+    if "observations" not in data:
+        return None
+
     df = pd.DataFrame(data["observations"])
 
     df["date"] = pd.to_datetime(df["date"])
