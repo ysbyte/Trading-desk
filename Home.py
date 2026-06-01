@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import requests
 from function.dashboard import latest_value, get_fred, get_yahoo
 
 st.set_page_config(page_title="Trading Desk Simulator", page_icon="💼")

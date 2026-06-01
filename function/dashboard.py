@@ -1,11 +1,14 @@
 import requests
 import pandas as pd
+import streamlit as st
+import time
 
-FRED_KEY = "cc0333f48969a440321a367c6b410cf3"
+FRED_KEY = "f19d3e41fcd9e8e36113d63a74232cbb"
 
 FRED_URL = "https://api.stlouisfed.org/fred/series/observations"
 YAHOO_URL = "https://query1.finance.yahoo.com/v8/finance/chart/"
 
+@st.cache_data(ttl=3600)
 def get_fred(series):
 
     params = {
@@ -14,6 +17,7 @@ def get_fred(series):
         "file_type": "json"
     }
 
+    time.sleep(0.5)
     r = requests.get(FRED_URL, params=params)
     data = r.json()
 
